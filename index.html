@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Vibe Coding SENA - Artefactos Monolíticos</title>
+    <style>
+        :root {
+            --sena-green: #39a900;
+            --sena-dark-blue: #00324d;
+            --sena-accent: #ff6b00;
+            --sena-light-bg: #f4f7f6;
+            --sena-card-bg: #ffffff;
+            --sena-text: #1e293b;
+            --sena-border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--sena-light-bg);
+            color: var(--sena-text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--sena-dark-blue), #001a29);
+            color: white;
+            padding: 1.8rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--sena-green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* NAVEGACIÓN PRINCIPAL (PESTAÑAS SECCIONES) */
+        nav.main-nav {
+            background-color: #ffffff;
+            border-bottom: 2px solid var(--sena-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .main-tabs-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .main-tab-btn {
+            background: none;
+            border: none;
+            padding: 1.1rem 1.8rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 4px solid transparent;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .main-tab-btn:hover {
+            color: var(--sena-green);
+            background-color: rgba(57, 169, 0, 0.05);
+        }
+
+        .main-tab-btn.active {
+            color: var(--sena-green);
+            border-bottom-color: var(--sena-green);
+            background-color: rgba(57, 169, 0, 0.08);
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        .tab-section {
+            display: none;
+            animation: fadeIn 0.35s ease-in-out;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TARJETAS CONTENEDORAS */
+        .card {
+            background: var(--sena-card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            border: 1px solid var(--sena-border);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--sena-light-bg);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            color: var(--sena-dark-blue);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .badge {
+            background-color: var(--sena-accent);
+            color: white;
+            font-size: 0.78rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-green { background-color: var(--sena-green); }
+        .badge-blue { background-color: var(--sena-dark-blue); }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .inca-box {
+            border-left: 5px solid var(--sena-accent);
+            background-color: #fff8f5;
+            padding: 1.2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .inca-box h3 {
+            color: var(--sena-dark-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        /* SECTOR TOGGLE BUTTONS PARA CASOS DE ACTIVIDAD */
+        .case-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background-color: #e2e8f0;
+            padding: 0.8rem;
+            border-radius: 50px;
+        }
+
+        .toggle-btn {
+            background-color: transparent;
+            border: none;
+            padding: 0.75rem 1.4rem;
+            border-radius: 30px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: var(--sena-dark-blue);
+        }
+
+        .toggle-btn.active {
+            background-color: var(--sena-dark-blue);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 50, 77, 0.3);
+        }
+
+        /* DETALLE DEL CASO ACTIVO */
+        .case-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .case-display {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .blueprint-container {
+            position: relative;
+            background-color: #001a29;
+            border-radius: 12px;
+            padding: 0.8rem;
+            border: 2px solid var(--sena-dark-blue);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .blueprint-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .blueprint-img:hover {
+            transform: scale(1.02);
+        }
+
+        .img-caption {
+            color: #94a3b8;
+            font-size: 0.82rem;
+            margin-top: 0.6rem;
+            font-style: italic;
+        }
+
+        /* HABITACIONES/MÓDULOS LIST */
+        .rooms-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .room-item {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--sena-green);
+            padding: 0.9rem 1.1rem;
+            border-radius: 0 8px 8px 0;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .room-item h4 {
+            color: var(--sena-dark-blue);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .room-item p {
+            color: #475569;
+            font-size: 0.88rem;
+            margin-top: 0.3rem;
+            line-height: 1.4;
+        }
+
+        /* PROMPT MAESTRO BOX */
+        .prompt-box {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 1.2rem;
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background-color: var(--sena-green);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #2e8800;
+        }
+
+        /* MODAL VISTA AMPLIADA DE PLANO */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            max-height: 95vh;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--sena-dark-blue);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 3px solid var(--sena-green);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TALLER DE VIBE CODING</h1>
+        <p>Estrategia Arquitectónica y Desarrollo Situado de Artefactos Monolíticos Interactivos en el SENA</p>
+    </header>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <nav class="main-nav">
+        <div class="main-tabs-wrapper">
+            <button class="main-tab-btn active" onclick="switchMainTab(0)">
+                💡 (1) ¿Qué es Vibe Coding?
+            </button>
+            <button class="main-tab-btn" onclick="switchMainTab(1)">
+                🛠️ (2) Planteamiento de la Actividad [6 Casos]
+            </button>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- SECCIÓN 1: ¿QUÉ ES VIBE CODING? -->
+        <section id="main-tab-0" class="tab-section active">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🚀 Fundamentación: Vibe Coding en el SENA</h2>
+                    <span class="badge badge-green">Filosofía Pedagógica</span>
+                </div>
+                <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.2rem;">
+                    El <strong>Vibe Coding</strong> transforma el rol del servidor público, instructor o líder de proceso en un <strong>Director Semántico</strong>. En lugar de escribir código sintáctico desde cero, el usuario guía a la Inteligencia Artificial mediante instrucciones estructuradas ("Quipus") para transformar documentos estáticos (PDFs, manuales, normativas) en <strong>Artefactos Monolíticos Interactivos</strong> ejecutables sin internet.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🪢 La Alegoría del Correo Inca (Sistema de Postas)</h2>
+                    <span class="badge badge-blue">Orquestación con IA</span>
+                </div>
+                <div class="grid-2">
+                    <div class="inca-box">
+                        <h3>👑 El Inca (Director Semántico / Usuario)</h3>
+                        <p>Posee el conocimiento experto del área (pedagógico, técnico o administrativo). Entrega el insumo fuente (PDF) y convalida la calidad del recurso en cada etapa.</p>
+                    </div>
+                    <div class="inca-box">
+                        <h3>🪢 El Quipu (Prompt Modular)</h3>
+                        <p>Instrucción técnica acotada que ordena a la LLM analizar, clasificar y construir bloque por bloque dentro del contenedor digital.</p>
+                    </div>
+                    <div class="inca-box">
+                        <h3>🏃 El Chasqui (La Inteligencia Artificial)</h3>
+                        <p>Copiloto de ejecución que procesa los datos a alta velocidad, infiere el flujo PHVA y redacta el código limpio en HTML, CSS y JS Vanilla.</p>
+                    </div>
+                    <div class="inca-box">
+                        <h3>🛤️ Qhapaq Ñan (La Casa sin Muebles)</h3>
+                        <p>Estructura monolítica (un solo archivo <code>index.html</code>) organizada en habitaciones delimitadas por IDs, garantizando que la IA no colapse al iterar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📐 La Regla de Oro del Vibe Coding</h2>
+                    <span class="badge">Estrategia Modular</span>
+                </div>
+                <div style="background-color: #eff6ff; border-left: 5px solid #3b82f6; padding: 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+                    <p style="font-size: 1.05rem; font-weight: 600; color: #1e3a8a;">
+                        ⚠️ Si le pedimos toda la aplicación a la Inteligencia Artificial de un solo golpe, la memoria de contexto se satura y el código colapsa.
+                    </p>
+                    <p style="margin-top: 0.6rem; color: #1e40af; font-size: 0.95rem;">
+                        El secreto radica en construir <strong>habitación por habitación, sección por sección</strong>. Primero levantamos la "Obra Negra" (el cascarón HTML/CSS vacío con las 8 habitaciones) y luego amueblamos cada módulo mediante prompts acotados sin alterar las demás secciones.
+                    </p>
+                </div>
+
+                <!-- IMAGEN DEL CORREO INCA / SISTEMA DE POSTAS (.MD) -->
+                <div class="blueprint-container">
+                    <img src="./img/inca.jpeg" alt="El Correo Inca - Sistema de Postas en 3D" class="blueprint-img" onclick="openModal(this.src)">
+                    <p class="img-caption">🏔️ El Correo Inca: Sistema de Postas (.md) para resguardar cada avance sin reiniciar el proceso. (Haz clic para ampliar)</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECCIÓN 2: PLANTEAMIENTO DE LA ACTIVIDAD (6 CASOS) -->
+        <section id="main-tab-1" class="tab-section">
+            
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header" style="border-bottom: none; margin-bottom: 0.5rem; padding-bottom: 0;">
+                    <h2 class="card-title">🎯 Casos de Aplicación por Áreas de Trabajo</h2>
+                    <span class="badge badge-green">Selecciona un Caso</span>
+                </div>
+                <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.2rem;">
+                    Haz clic en los botones de conmutación (Toggle) para cargar el plano arquitectónico en <code>/img</code> y la distribución de habitaciones correspondiente a cada rol institucional:
+                </p>
+
+                <!-- BOTONES TOGGLE PARA LOS 6 CASOS -->
+                <div class="case-selector">
+                    <button class="toggle-btn active" onclick="switchCase(0)">
+                        👨‍🏫 1. Instructores SENA
+                    </button>
+                    <button class="toggle-btn" onclick="switchCase(1)">
+                        📁 2. Gestión Documental
+                    </button>
+                    <button class="toggle-btn" onclick="switchCase(2)">
+                        👥 3. Talento Humano
+                    </button>
+                    <button class="toggle-btn" onclick="switchCase(3)">
+                        📝 4. Contratación y Viáticos
+                    </button>
+                    <button class="toggle-btn" onclick="switchCase(4)">
+                        📚 5. Biblioteca
+                    </button>
+                    <button class="toggle-btn" onclick="switchCase(5)">
+                        🏗️ 6. Mantenimiento Edificaciones
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DINÁMICO DEL CASO SELECCIONADO -->
+            <div class="card">
+                <div id="case-title-header" class="card-header">
+                    <!-- Inyectado por JS -->
+                </div>
+
+                <div class="case-display">
+                    <!-- COLUMNA IZQUIERDA: BLUEPRINT / IMAGEN EN /img -->
+                    <div class="blueprint-container">
+                        <img id="case-blueprint-img" src="" alt="Plano de la casa sin muebles" class="blueprint-img" onclick="openModal(this.src)">
+                        <p class="img-caption">🔍 Haz clic en el plano para ampliar la vista arquitectónica</p>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: LAS 8 HABITACIONES DEL ARTEFACTO -->
+                    <div>
+                        <h3 style="color: var(--sena-dark-blue); font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            🏠 Distribución de Habitaciones (Contenedores HTML)
+                        </h3>
+                        <div id="rooms-container" class="rooms-list">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROMPT DE EJECUCIÓN DEL CASO -->
+                <div class="prompt-box">
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copiar Prompt del Caso</button>
+                    <pre id="prompt-code-content">
+<!-- Inyectado por JS -->
+                    </pre>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL VISTA AMPLIADA DE IMAGEN -->
+    <div id="imgModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img id="modalImg" class="modal-content" src="" alt="Plano Ampliado">
+    </div>
+
+    <footer>
+        Taller de Vibe Coding SENA - Dirección de Formación Profesional / Centro de Tecnologías Agroindustriales
+    </footer>
+
+    <script>
+        // DATOS DE LOS 6 CASOS CON RUTAS A /img Y HABITACIONES
+        const casesData = [
+            {
+                id: "instructores",
+                title: "👨‍🏫 Caso 1: Instructores SENA (Diseño Curricular y FPI)",
+                badge: "Formación Profesional Integral",
+                imgPath: "./img/instructores.jpeg",
+                rooms: [
+                    { name: "1. Programa de Formación", desc: "Extracción automática de denominación, código, versión, tipo (Titulada/Complementaria) y matriz de competencias." },
+                    { name: "2. Perfil y Productos del Egresado", desc: "Perfil ocupacional y galería de entregables tangibles proyectados en la formación." },
+                    { name: "3. Mapa de Procesos (PHVA)", desc: "Estructura del ciclo de vida del proceso productivo o técnico en 4 fases conectadas." },
+                    { name: "4. Fase Planear (P)", desc: "Subprocesos de diseño/alistamiento, entradas, salidas, saberes de concepto y criterios." },
+                    { name: "5. Fase Hacer (H)", desc: "Subprocesos de ejecución/ensamble, procedimientos técnicos y saberes de proceso." },
+                    { name: "6. Fase Verificar (V)", desc: "Subprocesos de control de calidad, medición, normatividad e instrumentos de prueba." },
+                    { name: "7. Fase Actuar (A)", desc: "Documentación final, entrega de producto, mantenimiento y mejora continua." },
+                    { name: "8. Juego Interactivo (JS)", desc: "Evaluador Drag & Drop para clasificar saberes del PDF dentro del Ciclo PHVA." }
+                ],
+                prompt: `Actúa como mi copiloto de desarrollo web y diseñador instruccional experto del SENA. Vamos a construir un artefacto pedagógico monolítico (index.html) a partir del PDF del Programa de Formación que adjunto.
+
+Crea la estructura base HTML/CSS vacía con las 8 secciones (<section id="modulo-1"> a <section id="modulo-8">) según el plano arquitectónico de Instructores:
+1. Programa de Formación | 2. Perfil y Productos | 3. Mapa PHVA | 4. Fase Planear | 5. Fase Hacer | 6. Fase Verificar | 7. Fase Actuar | 8. Juego Interactivo Drag & Drop.
+
+Construye bloque por bloque sin modificar las demás secciones.`
+            },
+            {
+                id: "gestionDocumental",
+                title: "📁 Caso 2: Líder de Gestión Documental",
+                badge: "Archivo General de la Nación & TRD",
+                imgPath: "./img/gestionDocumental.jpeg",
+                rooms: [
+                    { name: "1. Marco Normativo y Políticas PGD", desc: "Ley 594/2000, decretos AGN, política PGD SENA y filtro normativo interactivas." },
+                    { name: "2. Instrumentos Archivísticos (CCD / TRD)", desc: "Cuadro de Clasificación, Tablas de Retención, TVD, FUID y Banco de Series BUSD." },
+                    { name: "3. Ciclo de Vida del Documento", desc: "Flujo del documento en las etapas de Gestión, Central e Histórico enmarcado en PHVA." },
+                    { name: "4. Producción y Recepción", desc: "Radicación de comunicaciones, correspondencia oficial, metadatos y uso de SIMEL/Orfeo." },
+                    { name: "5. Organización y Transferencias (FUID)", desc: "Foliación, rotulación de carpetas/cajas X200/X300 y diligenciamiento del FUID." },
+                    { name: "6. Disposición Final y Retención", desc: "Conservación Total (CT), Eliminación (E), Selección (S) y calculadora de retención." },
+                    { name: "7. Archivos Digitales y Seguridad", desc: "Preservación digital, firma electrónica, digitalización certificada y Ley 1581." },
+                    { name: "8. Simulador de Clasificación TRD", desc: "Juego Drag & Drop para clasificar expedientes reales del SENA en su TRD correspondiente." }
+                ],
+                prompt: `Actúa como copiloto de desarrollo web experto en Archivo y Gestión Documental pública del SENA. Construiremos un artefacto monolítico de capacitación archivística.
+
+Estructura el archivo index.html en 8 contenedores según el mapa /img/gestionDocumental.jpeg:
+1. Marco Normativo PGD | 2. Instrumentos CCD/TRD | 3. Ciclo Vital Documental | 4. Producción y Recepción | 5. Organización y FUID | 6. Disposición Final | 7. Archivos Digitales | 8. Simulador TRD.
+
+Procesa el PGD y TRD adjuntos para amueblar cada sección secuencialmente.`
+            },
+            {
+                id: "talentoHumano",
+                title: "👥 Caso 3: Líder de Talento Humano",
+                badge: "Ciclo del Colaborador & SG-SST",
+                imgPath: "./img/talentoHumano.jpeg",
+                rooms: [
+                    { name: "1. Plan Estratégico y Normatividad", desc: "Estatuto laboral, normas Función Pública, plan de vacantes y régimen disciplinario." },
+                    { name: "2. Selección e Inducción", desc: "Manual de funciones y competencias, perfiles de cargo y protocolo de onboarding." },
+                    { name: "3. Ciclo de Vida del Colaborador", desc: "Diagrama PHVA: Vinculación (P) → Desarrollo (H) → Evaluación (V) → Estímulos/Retiro (A)." },
+                    { name: "4. Evaluación y Desarrollo", desc: "Evaluación del Desempeño Laboral (EDL), acuerdos de gestión y Diagnóstico de Capacitación (DNC)." },
+                    { name: "5. Seguridad y Salud en el Trabajo", desc: "Matriz de riesgos SG-SST, COPASST, Comité de Convivencia y protocolo ATEL." },
+                    { name: "6. Bienestar e Incentivos", desc: "Plan de Bienestar Social, clima organizacional, flexibilidad laboral y actividades." },
+                    { name: "7. Nómina, Novedades y Retiro", desc: "Trámite de licencias, incapacidades, permisos, vacaciones y paz y salvo final." },
+                    { name: "8. Simulador de Casos de TH", desc: "Evaluador interactivo Drag & Drop para resolver situaciones laborales y procedimentales." }
+                ],
+                prompt: `Actúa como copiloto experto en Gestión del Talento Humano y Desarrollo Organizacional. Construiremos un artefacto monolítico de gestión humana en el SENA.
+
+Arma la estructura index.html con las 8 habitaciones del mapa /img/talentoHumano.jpeg:
+1. Plan Estratégico & Normatividad | 2. Selección e Inducción | 3. Ciclo del Colaborador PHVA | 4. Evaluación EDL | 5. SG-SST & ATEL | 6. Bienestar e Incentivos | 7. Nómina & Novedades | 8. Simulador de Casos TH.
+
+Avancemos módulo por módulo.`
+            },
+            {
+                id: "contratacionViaticos",
+                title: "📝 Caso 4: Líder de Contratación y Viáticos",
+                badge: "SECOP II, Ley 80 & Comisiones",
+                imgPath: "./img/contratacionViaticos.jpeg",
+                rooms: [
+                    { name: "1. Plan Anual de Adquisiciones (PAA)", desc: "PAA institucional, modalidades de selección (Ley 80/1150) y códigos UNSPSC." },
+                    { name: "2. Etapa Precontractual y Estudios Previos", desc: "Requisitos de estudios previos, CDP, análisis de sector y pliegos de condiciones." },
+                    { name: "3. Mapa de Procesos (PHVA)", desc: "Flujo unificado: Ciclo Contractual y Ciclo de Viáticos/Comisiones de Servicio." },
+                    { name: "4. SECOP II, Firma y Registro Presupuestal", desc: "Firma electrónica, aprobación de pólizas, expedición de RP y acta de inicio." },
+                    { name: "5. Supervisión y Pagos", desc: "Informes de ejecución, verificación de seguridad social, facturación y adiciones." },
+                    { name: "6. Gestión Integral de Viáticos", desc: "Reglamento, tabla de tarifas por nivel jerárquico, resoluciones y calculadora de viáticos." },
+                    { name: "7. Liquidación y Postcontractual", desc: "Actas de liquidación de común acuerdo, liberación de saldos y paz y salvo final." },
+                    { name: "8. Simulador de Casos y Expedientes", desc: "Juego Drag & Drop para auditar e integrar carpetas contractuales y legalizaciones." }
+                ],
+                prompt: `Actúa como copiloto de desarrollo experto en Contratación Pública (Ley 80/SECOP II) y Gestión de Viáticos Estatales.
+
+Crea la estructura monolítica index.html con las 8 habitaciones de /img/contratacionViaticos.jpeg:
+1. PAA & Normatividad | 2. Precontractual & CDP | 3. Mapa PHVA | 4. SECOP II & RP | 5. Supervisión & Pagos | 6. Gestión de Viáticos | 7. Liquidación | 8. Simulador de Expedientes.
+
+Integra las normas y tablas de viáticos adjuntas.`
+            },
+            {
+                id: "biblioteca",
+                title: "📚 Caso 5: Equipo de Biblioteca (SBS)",
+                badge: "Sistema de Bibliotecas SENA",
+                imgPath: "./img/biblioteca.jpeg",
+                rooms: [
+                    { name: "1. Reglamento y Políticas del SBS", desc: "Reglamento del sistema, derechos de autor (Ley 23/82) y políticas de préstamo." },
+                    { name: "2. Desarrollo de Colecciones", desc: "Adquisición, catalogación, clasificación Dewey/LC, indización y descarte." },
+                    { name: "3. Mapa de Procesos (PHVA)", desc: "Ciclo de vida del servicio bibliotecario: Planificación → Circulación → Evaluación." },
+                    { name: "4. Circulación y Préstamo", desc: "Préstamo en sala/externo, reservas, préstamo interbibliotecario y paz y salvo." },
+                    { name: "5. Recursos y Bases Digitales", desc: "Biblioteca Digital SENA, repositorio institucional y bases de datos (EBSCO, Scopus)." },
+                    { name: "6. Alfabetización y Citación (APA)", desc: "Formación de usuarios, gestores bibliográficos (Zotero) y guía interactiva APA/IEEE." },
+                    { name: "7. Extensión y Salas", desc: "Fomento a la lectura, eventos culturales, clubes de lectura y reserva de espacios." },
+                    { name: "8. Simulador de Búsqueda y Citación", desc: "Evaluador Drag & Drop de referencias bibliográficas, normas de citación y servicios." }
+                ],
+                prompt: `Actúa como copiloto experto en Bibliotecología, Sistemas de Información y Gestión de Recursos Digitales.
+
+Genera el cascarón HTML/CSS monolítico con las 8 secciones de /img/biblioteca.jpeg:
+1. Reglamento SBS | 2. Desarrollo Colecciones | 3. Mapa PHVA | 4. Circulación & Préstamo | 5. Bases Digitales | 6. Citación APA | 7. Extensión & Salas | 8. Simulador ALFIN.
+
+Amueblemos cada módulo según los reglamentos del SBS.`
+            },
+            {
+                id: "mantenimientoEdificaciones",
+                title: "🏗️ Caso 6: Mantenimiento de Edificaciones",
+                badge: "Infraestructura, NSR-10 & RETIE",
+                imgPath: "./img/mantenimientoEdificaciones.jpeg",
+                rooms: [
+                    { name: "1. Marco Normativo e Inventario", desc: "NSR-10, RETIE, NTC 1500 e inventario de activos fijos, sedes y equipos críticos." },
+                    { name: "2. Plan de Mantenimiento (POAM)", desc: "Programación de mantenimiento preventivo, correctivo y diagnósticos predictivos." },
+                    { name: "3. Mapa de Procesos (PHVA)", desc: "Ciclo del servicio locativo: Diagnóstico → Ejecución → Inspección → Cierre de OT." },
+                    { name: "4. Órdenes de Trabajo (OT)", desc: "Recepción de solicitudes locativas, asignación de cuadrillas y emisión de OTs." },
+                    { name: "5. Subsistemas Técnicos y Redes", desc: "Obras civiles, redes eléctricas, hidrosanitarias, impermeabilización y climatización." },
+                    { name: "6. SST (Alturas/Eléctrico) y Ambiental", desc: "Permisos para trabajo en alturas (Res. 4272), riesgo eléctrico, EPP y gestión RCD." },
+                    { name: "7. Recibo a Satisfacción y Garantías", desc: "Actas de cierre de obra, aplicación de garantías de contratistas y bitácora del inmueble." },
+                    { name: "8. Simulador de Diagnóstico y Fallas", desc: "Evaluador Drag & Drop para diagnosticar fallas locativas y asignar OTs por prioridad." }
+                ],
+                prompt: `Actúa como copiloto experto en Mantenimiento de Infraestructura Física y Obras Civiles.
+
+Construye la estructura vacía index.html con las 8 habitaciones del mapa /img/mantenimientoEdificaciones.jpeg:
+1. Normatividad & Inventario | 2. Plan POAM | 3. Mapa PHVA | 4. Órdenes de Trabajo OT | 5. Subsistemas Técnicos | 6. SST Alturas/Ambiental | 7. Recibo a Satisfacción | 8. Simulador de Fallas.
+
+Procedamos a completar habitación por habitación.`
+            }
+        ];
+
+        // CAMBIO DE PESTAÑA PRINCIPAL
+        function switchMainTab(index) {
+            const tabs = document.querySelectorAll('.main-tab-btn');
+            const sections = document.querySelectorAll('.tab-section');
+
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                    sections[i].classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                    sections[i].classList.remove('active');
+                }
+            });
+        }
+
+        // CAMBIO DE CASO EN LA SECCIÓN 2
+        function switchCase(caseIndex) {
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            toggleBtns.forEach((btn, i) => {
+                if (i === caseIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const data = casesData[caseIndex];
+
+            // Render Header del Caso
+            const headerContainer = document.getElementById('case-title-header');
+            headerContainer.innerHTML = `
+                <h2 class="card-title">${data.title}</h2>
+                <span class="badge badge-green">${data.badge}</span>
+            `;
+
+            // Render Imagen Blueprint
+            const imgElement = document.getElementById('case-blueprint-img');
+            imgElement.src = data.imgPath;
+            imgElement.alt = `Plano de ${data.title}`;
+
+            // Render Lista de Habitaciones
+            const roomsContainer = document.getElementById('rooms-container');
+            roomsContainer.innerHTML = data.rooms.map(room => `
+                <div class="room-item">
+                    <h4>${room.name}</h4>
+                    <p>${room.desc}</p>
+                </div>
+            `).join('');
+
+            // Render Prompt Code
+            const promptContent = document.getElementById('prompt-code-content');
+            promptContent.innerText = data.prompt;
+        }
+
+        // COPIAR PROMPT AL PORTAPAPELES
+        function copyPrompt(btn) {
+            const pre = btn.nextElementSibling;
+            navigator.clipboard.writeText(pre.innerText).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "¡Copiado al Portapapeles!";
+                btn.style.backgroundColor = "#00324d";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "var(--sena-green)";
+                }, 2000);
+            });
+        }
+
+        // MODAL PARA AMPLIAR IMÁGENES
+        function openModal(src) {
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImg');
+            modal.classList.add('active');
+            modalImg.src = src;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imgModal');
+            modal.classList.remove('active');
+        }
+
+        // INICIALIZAR EN EL CASO 1 (INSTRUCTORES) AL CARGAR
+        document.addEventListener('DOMContentLoaded', () => {
+            switchCase(0);
+        });
+    </script>
+</body>
+</html>
