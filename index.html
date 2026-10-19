@@ -53,7 +53,7 @@
             margin: 0 auto;
         }
 
-        /* NAVEGACIÓN PRINCIPAL (PESTAÑAS SECCIONES) */
+        /* NAVEGACIÓN PRINCIPAL (3 CARD TABS) */
         nav.main-nav {
             background-color: #ffffff;
             border-bottom: 2px solid var(--sena-border);
@@ -68,15 +68,16 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.5rem;
             padding: 0 1rem;
+            flex-wrap: wrap;
         }
 
         .main-tab-btn {
             background: none;
             border: none;
-            padding: 1.1rem 1.8rem;
-            font-size: 1.05rem;
+            padding: 1.1rem 1.4rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #64748b;
             cursor: pointer;
@@ -84,7 +85,7 @@
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .main-tab-btn:hover {
@@ -138,6 +139,8 @@
             border-bottom: 2px solid var(--sena-light-bg);
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .card-title {
@@ -163,7 +166,7 @@
 
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
@@ -180,7 +183,28 @@
             margin-bottom: 0.4rem;
         }
 
-        /* SECTOR TOGGLE BUTTONS PARA CASOS DE ACTIVIDAD */
+        .profile-card {
+            border-left: 4px solid var(--sena-dark-blue);
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .profile-card h4 {
+            color: var(--sena-dark-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-card p {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        /* TOGGLE BUTTONS PARA SUB-PESTAÑAS DE CASO 2 Y CASOS DE ACTIVIDAD */
         .case-selector {
             display: flex;
             flex-wrap: wrap;
@@ -305,6 +329,7 @@
             line-height: 1.5;
             margin-top: 1.5rem;
             overflow-x: auto;
+            border-left: 5px solid var(--sena-green);
         }
 
         .copy-btn {
@@ -324,6 +349,17 @@
 
         .copy-btn:hover {
             background-color: #2e8800;
+        }
+
+        .instruction-banner {
+            background-color: #eff6ff;
+            border-left: 5px solid #3b82f6;
+            padding: 1rem 1.2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.2rem;
+            color: #1e3a8a;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         /* MODAL VISTA AMPLIADA DE PLANO */
@@ -377,25 +413,28 @@
 <body>
 
     <header>
-        <h1>TALLER DE VIBE CODING</h1>
-        <p>Estrategia Arquitectónica y Desarrollo Situado de Artefactos Monolíticos Interactivos en el SENA</p>
+        <h1>TALLER DE VIBE CODING SENA</h1>
+        <p>Estrategia Arquitectónica, Accesibilidad (DUA) y Desarrollo Situado de Artefactos Monolíticos Interactivos</p>
     </header>
 
-    <!-- NAVEGACIÓN PRINCIPAL -->
+    <!-- NAVEGACIÓN PRINCIPAL (3 CARD TABS) -->
     <nav class="main-nav">
         <div class="main-tabs-wrapper">
             <button class="main-tab-btn active" onclick="switchMainTab(0)">
                 💡 (1) ¿Qué es Vibe Coding?
             </button>
             <button class="main-tab-btn" onclick="switchMainTab(1)">
-                🛠️ (2) Planteamiento de la Actividad [6 Casos]
+                📖 (2) Ejemplo Ilustrativo
+            </button>
+            <button class="main-tab-btn" onclick="switchMainTab(2)">
+                🛠️ (3) Planteamiento de la Actividad [6 Casos]
             </button>
         </div>
     </nav>
 
     <main>
 
-        <!-- SECCIÓN 1: ¿QUÉ ES VIBE CODING? -->
+        <!-- CARD 1: ¿QUÉ ES VIBE CODING? -->
         <section id="main-tab-0" class="tab-section active">
             
             <div class="card">
@@ -443,11 +482,10 @@
                         ⚠️ Si le pedimos toda la aplicación a la Inteligencia Artificial de un solo golpe, la memoria de contexto se satura y el código colapsa.
                     </p>
                     <p style="margin-top: 0.6rem; color: #1e40af; font-size: 0.95rem;">
-                        El secreto radica en construir <strong>habitación por habitación, sección por sección</strong>. Primero levantamos la "Obra Negra" (el cascarón HTML/CSS vacío con las 8 habitaciones) y luego amueblamos cada módulo mediante prompts acotados sin alterar las demás secciones.
+                        El secreto radica en construir <strong>habitación por habitación, sección por sección</strong>. Primero levantamos la "Obra Negra" (el cascarón HTML/CSS vacío con las habitaciones delimitadas) y luego amueblamos cada módulo mediante prompts acotados sin alterar las demás secciones.
                     </p>
                 </div>
 
-                <!-- IMAGEN DEL CORREO INCA / SISTEMA DE POSTAS (.MD) -->
                 <div class="blueprint-container">
                     <img src="./img/inca.jpeg" alt="El Correo Inca - Sistema de Postas en 3D" class="blueprint-img" onclick="openModal(this.src)">
                     <p class="img-caption">🏔️ El Correo Inca: Sistema de Postas (.md) para resguardar cada avance sin reiniciar el proceso. (Haz clic para ampliar)</p>
@@ -456,8 +494,212 @@
 
         </section>
 
-        <!-- SECCIÓN 2: PLANTEAMIENTO DE LA ACTIVIDAD (6 CASOS) -->
+        <!-- CARD 2: EJEMPLO ILUSTRATIVO (INTEGRADO) -->
         <section id="main-tab-1" class="tab-section">
+            
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header" style="border-bottom: none; margin-bottom: 0.5rem; padding-bottom: 0;">
+                    <h2 class="card-title">🎉 Ejemplo Ilustrativo: La Fiesta Inclusiva</h2>
+                    <span class="badge badge-green">Vibe Coding + DUA</span>
+                </div>
+                <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.2rem;">
+                    Navega por los módulos del caso guiado para consultar la descripción del aula y los <strong>Prompts de Construcción Modular (Quipus)</strong> listos para ejecutar en una LLM:
+                </p>
+
+                <!-- BOTONES TOGGLE SUB-NAVEGACIÓN CASO 2 -->
+                <div class="case-selector">
+                    <button class="toggle-btn active" onclick="switchCaso2Tab(0)">
+                        [a] Descripción del Caso
+                    </button>
+                    <button class="toggle-btn" onclick="switchCaso2Tab(1)">
+                        [b] Prompt: Mapa PHVA
+                    </button>
+                    <button class="toggle-btn" onclick="switchCaso2Tab(2)">
+                        [c] Prompt: Rutas DUA (10 Avatares)
+                    </button>
+                    <button class="toggle-btn" onclick="switchCaso2Tab(3)">
+                        [d] Prompt: Juego Drag & Drop
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUB-MÓDULO 0: DESCRIPCIÓN DEL CASO -->
+            <div id="caso2-sub-0" class="caso2-subblock">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🎉 Reto Situado: Organización de la Fiesta de Integración</h2>
+                        <span class="badge badge-green">Insumo Base</span>
+                    </div>
+                    <p style="line-height: 1.6; margin-bottom: 1rem;">
+                        Este caso de ejemplo le plantea a los participantes el reto de construir un <strong>Artefacto Monolítico Inclusivo</strong>. Copiando y pegando los prompts de las siguientes pestañas en una LLM, la máquina generará cada sección del archivo <code>index.html</code> garantizando que los <strong>10 aprendices con diversas necesidades y estilos de aprendizaje</strong> puedan completar las actividades mediante rutas personalizadas.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">👥 Caracterización del Aula Inclusiva (10 Aprendices)</h2>
+                        <span class="badge badge-blue">Insumo DUA</span>
+                    </div>
+                    <div class="grid-2">
+                        <div class="profile-card">
+                            <h4>1. Sofía (Sorda / Hipoacusia)</h4>
+                            <p>Procesamiento 100% visual. Requiere apoyos gráficos, sintaxis sencilla y consignas sin dependencia auditiva.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>2. Camilo (Espectro Autista - CEA)</h4>
+                            <p>Pensamiento estructurado. Requiere consignas explícitas, reglas de juego literales y secuencias previsibles.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>3. Mateo (TDAH)</h4>
+                            <p>Inatento e impulsivo. Requiere micro-entregables en bloques cortos y listas de chequeo con retroalimentación inmediata.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>4. Valentina (Baja Visión)</h4>
+                            <p>Lector de pantalla. Requiere diseño de alto contraste, etiquetas semánticas y tipografía clara.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>5. Lucas (Movilidad Reducida)</h4>
+                            <p>Navegación asistida. Requiere componentes accionables por teclado y libertad en los tiempos de respuesta.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>6. Mariana (Estilo Kinestésico)</h4>
+                            <p>Aprende haciendo. Le benefician los componentes interactivos prácticos como módulos Drag & Drop.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>7. Diego (Estilo Auditivo/Verbal)</h4>
+                            <p>Procesamiento por lenguaje. Responde muy bien a explicaciones de lectura fluida y resúmenes estructurados.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>8. Elena (Ansiedad Social)</h4>
+                            <p>Trabajo asincrónico. Se desempeña mejor con entregas individuales bien delimitadas sin exposición pública.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>9. Santiago (Visual / Esquemático)</h4>
+                            <p>Mapeo gráfico. Prefiere diagramas de flujo, mapas conceptuales por colores y clasificadores visuales.</p>
+                        </div>
+                        <div class="profile-card">
+                            <h4>10. Gabriela (Lógico-Matemática)</h4>
+                            <p>Análisis de datos. Trabaja eficientemente con matrices de causa-efecto, tablas de contraste y métricas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MÓDULO 1: PROMPT MAPA PHVA -->
+            <div id="caso2-sub-1" class="caso2-subblock" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🪢 Prompt 1: Generación del Mapa de Procesos (PHVA)</h2>
+                        <span class="badge badge-green">Habitación 2</span>
+                    </div>
+                    
+                    <div class="instruction-banner">
+                        📌 <strong>Instrucción para el participante:</strong> Copia este prompt y pégalo en tu LLM para "amueblar" el contenedor del Mapa de Procesos de la Fiesta de Integración.
+                    </div>
+
+                    <div class="prompt-box">
+                        <button class="copy-btn" onclick="copyPrompt(this)">Copiar Prompt</button>
+                        <pre>Actúa como copiloto experto en gestión de procesos y desarrollo web. 
+
+Dentro del contenedor `<section id="modulo-2">` de nuestro archivo monolítico index.html, genera el código HTML y CSS integrado para presentar el **Mapa de Procesos Generales de la Fiesta de Integración** estructurado en el Ciclo PHVA.
+
+Requisitos del diseño y contenido:
+1. Diseña una cuadrícula o grid responsive con 4 tarjetas de colores diferenciados para cada fase del ciclo:
+   - PLANEAR (P) - Azul: Presupuesto inicial, listado de invitados, selección de lugar/menú y cronograma.
+   - HACER (H) - Verde: Compra de insumos, envío de invitaciones, decoración del lugar y montaje de sonido.
+   - VERIFICAR (V) - Amarillo/Naranja: Confirmación de asistencias, prueba previa de sonido, inspección de catering e imprevistos.
+   - ACTUAR (A) - Rojo: Ejecución del plan B por lluvia, ajustes de porciones, aseo/entrega de recinto y encuesta de satisfacción.
+2. Cada tarjeta debe incluir íconos descriptivos y viñetas con sintaxis clara y accesible (DUA) apta para lectores de pantalla.
+3. Devuelve únicamente el código HTML/CSS correspondiente al interior de esta sección sin modificar las demás.</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MÓDULO 2: PROMPT RUTAS DUA (10 AVATARES) -->
+            <div id="caso2-sub-2" class="caso2-subblock" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🪢 Prompt 2: Generación de las 10 Rutas DUA (Menú Interactivo de Avatares)</h2>
+                        <span class="badge badge-blue">Habitación 3</span>
+                    </div>
+
+                    <div class="instruction-banner">
+                        📌 <strong>Instrucción para el participante:</strong> Copia este prompt para indicarle a la IA que cree una barra navegable con 10 botones/avatares. Al hacer clic en cada aprendiz, se desplegará dinámicamente su **Ruta DUA Inclusiva** con sus acciones cognitivas y sus recursos específicos.
+                    </div>
+
+                    <div class="prompt-box">
+                        <button class="copy-btn" onclick="copyPrompt(this)">Copiar Prompt</button>
+                        <pre>Actúa como Diseñador Instruccional experto en DUA y Programador Frontend JS Vanilla.
+
+Dentro del contenedor `<section id="modulo-3">` de nuestro archivo monolítico index.html, genera el código HTML, CSS y JS para crear un **Menú Interactivo de 10 Avatares (Botones con ícono/perfil)** para seleccionar a cada aprendiz del aula inclusiva.
+
+Al hacer clic sobre el botón de un aprendiz, debe desplegarse dinámicamente una tarjeta que contenga la **Ruta DUA Personalizada para Organizar la Fiesta**, estructurada con la siguiente información:
+
+Estructura requerida para CADA uno de los 10 aprendices:
+1. ENCABEZADO DEL PERFIL: Nombre del aprendiz, avatar/ícono y caracterización de su condición/estilo.
+2. ACCIÓN INTERPRETATIVA (Planear/Hacer): Tarea adaptada según sus fortalezas.
+3. ACCIÓN ARGUMENTATIVA (Verificar): Diagnóstico de una falla en la fiesta (ej. fallo de sonido o catering) con el método de análisis ajustado.
+4. ACCIÓN PROPOSITIVA (Actuar): Diseño de la solución / Plan B / Lista de Chequeo.
+5. RECURSOS NECESARIOS: Apoyos tecnológicos o didácticos requeridos por ese aprendiz (ej. software lector de pantalla, plantillas de alto contraste, cronómetros visuales, canal de entrega asincrónico, etc.).
+
+Detalle de los 10 Avatares a programar:
+- Avatar 1: Sofía (Sorda/Hipoacusia) - Ruta visual, infografías con íconos, matriz sin audio.
+- Avatar 2: Camilo (Espectro Autista) - Ruta con secuencias literales, pasos numerados explícitos, SOP rígido.
+- Avatar 3: Mateo (TDAH) - Ruta con micro-bloques de tiempo (Pomodoro), checklist visual interactivas.
+- Avatar 4: Valentina (Baja Visión) - Ruta optimizada para lector de pantalla, alto contraste, texto semántico.
+- Avatar 5: Lucas (Movilidad Reducida) - Ruta con comandos de teclado, tiempos extendidos sin restricción.
+- Avatar 6: Mariana (Kinestésica) - Ruta basada en simulación práctica, manipulables y pruebas de campo.
+- Avatar 7: Diego (Auditivo/Verbal) - Ruta con textos narrados, guiones explicativos y resúmenes verbales.
+- Avatar 8: Elena (Ansiedad Social) - Ruta de entregas individuales, participación escrita asincrónica.
+- Avatar 9: Santiago (Visual/Esquemático) - Ruta basada en mapas mentales de colores y diagramas de flujo.
+- Avatar 10: Gabriela (Lógico-Matemática) - Ruta basada en tablas de datos, métricas y matrices causa-efecto.
+
+Asegúrate de incluir la lógica JS Vanilla sencilla para conmutar las vistas de las tarjetas al hacer clic en los botones de los avatares.</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MÓDULO 3: PROMPT JUEGO DRAG & DROP -->
+            <div id="caso2-sub-3" class="caso2-subblock" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🪢 Prompt 3: Generación del Juego Interactivo Drag & Drop</h2>
+                        <span class="badge">Habitación 4</span>
+                    </div>
+
+                    <div class="instruction-banner">
+                        📌 <strong>Instrucción para el participante:</strong> Copia este prompt para ordenar a la IA que programe el juego evaluador en JavaScript Vanilla dentro de la misma sección.
+                    </div>
+
+                    <div class="prompt-box">
+                        <button class="copy-btn" onclick="copyPrompt(this)">Copiar Prompt</button>
+                        <pre>Actúa como programador JavaScript experto en interacción web accesible.
+
+Dentro del contenedor `<section id="modulo-4">` de nuestro index.html, genera el código HTML, CSS y JavaScript Vanilla para un **Juego Interactivo Drag & Drop (Arrastrar y Soltar)** sobre el caso de la Fiesta de Integración.
+
+Especificaciones del Juego:
+1. Crea un contenedor con 8 tarjetas arrastrables que representen tareas de la fiesta:
+   - "Presupuesto Inicial" (Target: Planear)
+   - "Lista de Invitados" (Target: Planear)
+   - "Decorar el Salón" (Target: Hacer)
+   - "Comprar Comida" (Target: Hacer)
+   - "Prueba de Sonido" (Target: Verificar)
+   - "Confirmar Asistencias" (Target: Verificar)
+   - "Plan B por Lluvia" (Target: Actuar)
+   - "Aseo y Cierre" (Target: Actuar)
+
+2. Crea 4 zonas de soltado (Drop Zones) etiquetadas como: PLANEAR (P), HACER (H), VERIFICAR (V) y ACTUAR (A).
+3. Añade la lógica en JavaScript nativo usando la API Drag and Drop HTML5.
+4. Incluye un botón "Validar Respuestas" que resalte en verde los aciertos y en rojo las respuestas incorrectas, con un mensaje claro de retroalimentación final.
+5. El diseño debe ser responsive y fácil de interactuar.</pre>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CARD 3: PLANTEAMIENTO DE LA ACTIVIDAD (6 CASOS) -->
+        <section id="main-tab-2" class="tab-section">
             
             <div class="card" style="margin-bottom: 1.5rem;">
                 <div class="card-header" style="border-bottom: none; margin-bottom: 0.5rem; padding-bottom: 0;">
@@ -675,7 +917,7 @@ Procedamos a completar habitación por habitación.`
             }
         ];
 
-        // CAMBIO DE PESTAÑA PRINCIPAL
+        // CAMBIO DE PESTAÑA PRINCIPAL (3 CARDS)
         function switchMainTab(index) {
             const tabs = document.querySelectorAll('.main-tab-btn');
             const sections = document.querySelectorAll('.tab-section');
@@ -691,9 +933,25 @@ Procedamos a completar habitación por habitación.`
             });
         }
 
-        // CAMBIO DE CASO EN LA SECCIÓN 2
+        // CAMBIO DE SUB-PESTAÑA EN CASO 2 (EJEMPLO ILUSTRATIVO)
+        function switchCaso2Tab(subIndex) {
+            const btns = document.querySelectorAll('#main-tab-1 .toggle-btn');
+            const subBlocks = document.querySelectorAll('.caso2-subblock');
+
+            btns.forEach((btn, i) => {
+                if (i === subIndex) {
+                    btn.classList.add('active');
+                    subBlocks[i].style.display = 'block';
+                } else {
+                    btn.classList.remove('active');
+                    subBlocks[i].style.display = 'none';
+                }
+            });
+        }
+
+        // CAMBIO DE CASO EN LA SECCIÓN 3 (6 CASOS)
         function switchCase(caseIndex) {
-            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            const toggleBtns = document.querySelectorAll('#main-tab-2 .toggle-btn');
             toggleBtns.forEach((btn, i) => {
                 if (i === caseIndex) {
                     btn.classList.add('active');
@@ -757,9 +1015,10 @@ Procedamos a completar habitación por habitación.`
             modal.classList.remove('active');
         }
 
-        // INICIALIZAR EN EL CASO 1 (INSTRUCTORES) AL CARGAR
+        // INICIALIZAR VISTAS AL CARGAR
         document.addEventListener('DOMContentLoaded', () => {
             switchCase(0);
+            switchCaso2Tab(0);
         });
     </script>
 </body>
